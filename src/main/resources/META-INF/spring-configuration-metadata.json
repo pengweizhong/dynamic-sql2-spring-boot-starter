@@ -1,0 +1,41 @@
+{
+  "groups": [
+    {
+      "name": "com.pengwz.dynamic.sql2",
+      "type": "com.pengwz.dynamic.sql2.SqlContextPropertiesBinding",
+      "description": "Configuration properties for dynamic SQL binding."
+    }
+  ],
+  "properties": [
+    {
+      "name": "com.pengwz.dynamic.sql2.config.scan-database-package",
+      "type": "java.lang.String[]",
+      "description": "Packages to scan for database definitions."
+    },
+    {
+      "name": "com.pengwz.dynamic.sql2.config.scan-table-package",
+      "type": "java.lang.String[]",
+      "description": "Packages to scan for table definitions."
+    },
+    {
+      "name": "com.pengwz.dynamic.sql2.config.scan-mapper-package",
+      "type": "java.lang.String[]",
+      "description": "Packages to scan for mappers."
+    },
+    {
+      "name": "com.pengwz.dynamic.sql2.config.schema-matchers",
+      "type": "java.util.Set<com.pengwz.dynamic.sql2.DbSchemaMatcher>",
+      "description": "Set of schema matchers to use."
+    },
+    {
+      "name": "com.pengwz.dynamic.sql2.config.schema-properties",
+      "type": "java.util.List<com.pengwz.dynamic.sql2.SchemaProperties>",
+      "description": "List of schema properties for database connections."
+    },
+    {
+      "name": "com.pengwz.dynamic.sql2.config.interceptors",
+      "type": "java.util.List<com.pengwz.dynamic.sql2.SqlInterceptor>",
+      "description": "List of SQL interceptors."
+    }
+  ]
+}

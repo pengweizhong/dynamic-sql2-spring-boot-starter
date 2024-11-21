@@ -7,13 +7,13 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @ConfigurationProperties(prefix = "com.pengwz.dynamic.sql2")
 public class SqlContextPropertiesBinding {
     @NestedConfigurationProperty
-    private SqlContextProperties sqlContextProperties = SqlContextProperties.defaultSqlContextProperties();
+    private SqlContextProperties config;
 
-    public SqlContextProperties getSqlContextProperties() {
-        return sqlContextProperties;
+    public SqlContextProperties getConfig() {
+        return config;
     }
 
-    public void setSqlContextProperties(SqlContextProperties sqlContextProperties) {
-        this.sqlContextProperties = sqlContextProperties;
+    public void setConfig(SqlContextProperties config) {
+        this.config = config;
     }
 }
