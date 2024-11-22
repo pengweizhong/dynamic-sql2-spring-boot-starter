@@ -1,12 +1,14 @@
-package com.pengwz.dynamic.sql2.config;
+package com.pengwz.dynamic.sql2.application;
 
-import com.pengwz.dynamic.sql2.application.MapperBeanDefinitionRegistrar;
+import com.pengwz.dynamic.sql2.config.SqlContextPropertiesBinding;
 import com.pengwz.dynamic.sql2.context.SqlContextHelper;
 import com.pengwz.dynamic.sql2.context.properties.SchemaProperties;
 import com.pengwz.dynamic.sql2.context.properties.SqlContextProperties;
 import com.pengwz.dynamic.sql2.core.SqlContext;
 import com.pengwz.dynamic.sql2.datasource.DataSourceMapping;
 import com.pengwz.dynamic.sql2.datasource.DataSourceUtils;
+import com.pengwz.dynamic.sql2.interceptor.SqlInterceptor;
+import com.pengwz.dynamic.sql2.interceptor.SqlInterceptorChain;
 import com.pengwz.dynamic.sql2.plugins.pagination.PageInterceptorPlugin;
 import com.pengwz.dynamic.sql2.utils.MapUtils;
 import org.slf4j.Logger;
@@ -40,9 +42,24 @@ public class DynamicSqlAutoConfiguration {
     }
 
     @Bean
+    public PageInterceptorPlugin pageInterceptorPlugin() {
+        return new PageInterceptorPlugin();
+    }
+
+    @Bean
     @DependsOn("sqlContext")
     public MapperBeanDefinitionRegistrar mapperBeanDefinitionRegistrar() {
         return new MapperBeanDefinitionRegistrar();
+    }
+
+    @Bean
+    public SqlInterceptorRegistrar sqlInterceptorRegistrar(List<SqlInterceptor> interceptors) {
+        log.info("SqlInterceptorRegistrar init.");
+        for (SqlInterceptor interceptor : interceptors) {
+            log.info("Add SqlInterceptor for {}.", interceptor.getClass().getCanonicalName());
+            SqlInterceptorChain.getInstance().addInterceptor(interceptor);
+        }
+        return new SqlInterceptorRegistrar(interceptors);
     }
 
     @Bean
@@ -73,7 +90,7 @@ public class DynamicSqlAutoConfiguration {
         printSqlProperties.setPrintDataSourceName(false);
         schemaProperties.setPrintSqlProperties(printSqlProperties);
         sqlContextProperties.addSchemaProperties(schemaProperties);
-        sqlContextProperties.addInterceptor(new PageInterceptorPlugin());
+//        sqlContextProperties.addInterceptor(new PageInterceptorPlugin());
         SqlContextHelper.addSchemaProperties(sqlContextProperties);
         return SqlContextHelper.createSqlContextConfigurer(sqlContextProperties).getSqlContext();
     }
