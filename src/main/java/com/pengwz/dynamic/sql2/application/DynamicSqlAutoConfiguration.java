@@ -7,6 +7,7 @@ import com.pengwz.dynamic.sql2.context.properties.SqlContextProperties;
 import com.pengwz.dynamic.sql2.core.SqlContext;
 import com.pengwz.dynamic.sql2.datasource.DataSourceMapping;
 import com.pengwz.dynamic.sql2.datasource.DataSourceUtils;
+import com.pengwz.dynamic.sql2.datasource.connection.ConnectionHolder;
 import com.pengwz.dynamic.sql2.interceptor.SqlInterceptor;
 import com.pengwz.dynamic.sql2.interceptor.SqlInterceptorChain;
 import com.pengwz.dynamic.sql2.plugins.pagination.PageInterceptorPlugin;
@@ -81,6 +82,7 @@ public class DynamicSqlAutoConfiguration {
             log.info("Add DbSchemaMatcher for {}.", schemaMatcher.getClass().getCanonicalName());
             sqlContextProperties.getSchemaMatchers().add(schemaMatcher);
         }
+        ConnectionHolder.setConnectionHandle(new SpringConnectionHandle());
         // 用户没有自定义配置  就走默认配置
         if (CollectionUtils.isEmpty(schemaProperties)) {
             return buildDefaultSqlContext(sqlContextProperties);
