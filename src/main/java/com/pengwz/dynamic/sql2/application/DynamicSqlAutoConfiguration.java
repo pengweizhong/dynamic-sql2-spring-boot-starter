@@ -4,12 +4,14 @@ import com.pengwz.dynamic.sql2.context.SqlContextHelper;
 import com.pengwz.dynamic.sql2.context.properties.SchemaProperties;
 import com.pengwz.dynamic.sql2.context.properties.SchemaProperties.PrintSqlProperties;
 import com.pengwz.dynamic.sql2.context.properties.SqlContextProperties;
+import com.pengwz.dynamic.sql2.convert.FetchResultConverterRegistrar;
 import com.pengwz.dynamic.sql2.core.SqlContext;
 import com.pengwz.dynamic.sql2.datasource.DataSourceMapping;
 import com.pengwz.dynamic.sql2.datasource.DataSourceUtils;
 import com.pengwz.dynamic.sql2.datasource.connection.ConnectionHolder;
 import com.pengwz.dynamic.sql2.interceptor.SqlInterceptor;
 import com.pengwz.dynamic.sql2.interceptor.SqlInterceptorChain;
+import com.pengwz.dynamic.sql2.plugins.conversion.FetchResultConverter;
 import com.pengwz.dynamic.sql2.plugins.pagination.PageInterceptorPlugin;
 import com.pengwz.dynamic.sql2.plugins.schema.DbSchemaMatcher;
 import com.pengwz.dynamic.sql2.plugins.schema.impl.MysqlSchemaMatcher;
@@ -38,8 +40,9 @@ public class DynamicSqlAutoConfiguration {
     private final List<SchemaProperties> schemaProperties;
 
     @Autowired
-    public DynamicSqlAutoConfiguration(ApplicationContext applicationContext, List<SchemaProperties> schemaProperties) {
-        log.info("DynamicSqlAutoConfiguration init.");
+    public DynamicSqlAutoConfiguration(ApplicationContext applicationContext,
+                                       List<SchemaProperties> schemaProperties) {
+        log.debug("DynamicSqlAutoConfiguration init.");
         this.applicationContext = applicationContext;
         this.schemaProperties = schemaProperties;
     }
@@ -57,29 +60,34 @@ public class DynamicSqlAutoConfiguration {
 
     @Bean
     public SqlInterceptorRegistrar sqlInterceptorRegistrar(List<SqlInterceptor> interceptors) {
-        log.info("SqlInterceptorRegistrar init.");
         return new SqlInterceptorRegistrar(interceptors);
     }
 
-    @Bean
+    @Bean("dbSchemaMatcherRegistrar")
     public DbSchemaMatcherRegistrar dbSchemaMatcherRegistrar(List<DbSchemaMatcher> schemaMatchers) {
         schemaMatchers.add(new MysqlSchemaMatcher());
         schemaMatchers.add(new OracleSchemaMatcher());
         return new DbSchemaMatcherRegistrar(schemaMatchers);
     }
 
+    @Bean("fetchResultConverterRegistrar")
+    public FetchResultConverterRegistrar fetchResultConverterRegistrar(List<FetchResultConverter> fetchResultConverters) {
+        return new FetchResultConverterRegistrar(fetchResultConverters);
+    }
+
     @Bean
     @ConditionalOnMissingBean
+    @DependsOn({"fetchResultConverterRegistrar", "dbSchemaMatcherRegistrar"})
     public SqlContext sqlContext(DbSchemaMatcherRegistrar dbSchemaMatcherRegistrar,
                                  SqlInterceptorRegistrar sqlInterceptorRegistrar) {
-        log.info("SqlContext init.");
+        log.info("SqlContext initialization completed.");
         SqlContextProperties sqlContextProperties = new SqlContextProperties();
         for (SqlInterceptor interceptor : sqlInterceptorRegistrar.getInterceptors()) {
-            log.info("Add SqlInterceptor for {}.", interceptor.getClass().getCanonicalName());
+            log.debug("Add SqlInterceptor for {}.", interceptor.getClass().getCanonicalName());
             SqlInterceptorChain.getInstance().addInterceptor(interceptor);
         }
         for (DbSchemaMatcher schemaMatcher : dbSchemaMatcherRegistrar.getSchemaMatchers()) {
-            log.info("Add DbSchemaMatcher for {}.", schemaMatcher.getClass().getCanonicalName());
+            log.debug("Add DbSchemaMatcher for {}.", schemaMatcher.getClass().getCanonicalName());
             sqlContextProperties.getSchemaMatchers().add(schemaMatcher);
         }
         ConnectionHolder.setConnectionHandle(new SpringConnectionHandle());
@@ -95,6 +103,9 @@ public class DynamicSqlAutoConfiguration {
             DataSourceUtils.checkAndSave(sqlContextProperties, dataSourceMapping);
         }
         SqlContextHelper.addSchemaProperties(sqlContextProperties);
+        FetchResultConverterRegistrar fetchResultConverterRegistrar =
+                (FetchResultConverterRegistrar)applicationContext.getBean("fetchResultConverterRegistrar");
+        fetchResultConverterRegistrar.registrarConverters();
         return SqlContextHelper.createSqlContextConfigurer(sqlContextProperties).getSqlContext();
     }
 
