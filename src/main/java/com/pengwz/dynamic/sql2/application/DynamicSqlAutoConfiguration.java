@@ -42,9 +42,15 @@ public class DynamicSqlAutoConfiguration {
     @Autowired
     public DynamicSqlAutoConfiguration(ApplicationContext applicationContext,
                                        List<SchemaProperties> schemaProperties) {
-        log.debug("DynamicSqlAutoConfiguration init.");
         this.applicationContext = applicationContext;
         this.schemaProperties = schemaProperties;
+        final String version = "1.0.0";
+        log.info("\n ____                              _          ____   ___  _\n" +//NOSONAR
+                "|  _ \\ _   _ _ __   __ _ _ __ ___ (_) ___    / ___| / _ \\| |\n" +
+                "| | | | | | | '_ \\ / _` | '_ ` _ \\| |/ __|___\\___ \\| | | | |\n" +
+                "| |_| | |_| | | | | (_| | | | | | | | (_|_____|__) | |_| | |___\n" +
+                "|____/ \\__, |_| |_|\\__,_|_| |_| |_|_|\\___|   |____/ \\__\\_\\_____|\n" +
+                "       |___/                                     Version: " + version);
     }
 
     @Bean
@@ -104,7 +110,7 @@ public class DynamicSqlAutoConfiguration {
         }
         SqlContextHelper.addSchemaProperties(sqlContextProperties);
         FetchResultConverterRegistrar fetchResultConverterRegistrar =
-                (FetchResultConverterRegistrar)applicationContext.getBean("fetchResultConverterRegistrar");
+                (FetchResultConverterRegistrar) applicationContext.getBean("fetchResultConverterRegistrar");
         fetchResultConverterRegistrar.registrarConverters();
         return SqlContextHelper.createSqlContextConfigurer(sqlContextProperties).getSqlContext();
     }
