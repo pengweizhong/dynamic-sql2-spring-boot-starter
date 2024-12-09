@@ -21,6 +21,7 @@ import com.pengwz.dynamic.sql2.utils.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
+@ConditionalOnBean(DataSource.class)
 //@EnableConfigurationProperties(SqlContextPropertiesBinding.class)
 public class DynamicSqlAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger(DynamicSqlAutoConfiguration.class);
