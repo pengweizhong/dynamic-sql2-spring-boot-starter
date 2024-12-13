@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.pengwz.dynamic.sql2.application.DynamicSqlAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.dynamic.sql2.application.DynamicSqlAutoConfiguration

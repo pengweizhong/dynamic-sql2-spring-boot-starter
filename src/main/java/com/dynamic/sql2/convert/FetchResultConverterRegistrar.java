@@ -1,4 +1,4 @@
-package com.pengwz.dynamic.sql2.convert;
+package com.dynamic.sql2.convert;
 
 import com.pengwz.dynamic.sql2.plugins.conversion.FetchResultConverter;
 import com.pengwz.dynamic.sql2.utils.CollectionUtils;

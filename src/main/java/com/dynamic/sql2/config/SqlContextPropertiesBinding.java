@@ -1,4 +1,4 @@
-//package com.pengwz.dynamic.sql2.config;
+package com.dynamic.sql2.config;//package com.pengwz.dynamic.sql2.config;
 //
 //import com.pengwz.dynamic.sql2.context.properties.SqlContextProperties;
 //import org.springframework.boot.context.properties.ConfigurationProperties;
