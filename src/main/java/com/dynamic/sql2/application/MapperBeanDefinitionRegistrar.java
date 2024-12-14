@@ -1,7 +1,7 @@
 package com.dynamic.sql2.application;
 
-import com.pengwz.dynamic.sql2.mapper.MapperProxyFactory;
-import com.pengwz.dynamic.sql2.mapper.MapperRegistry;
+import com.dynamic.sql.mapper.MapperProxyFactory;
+import com.dynamic.sql.mapper.MapperRegistry;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

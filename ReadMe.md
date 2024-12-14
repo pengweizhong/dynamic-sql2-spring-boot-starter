@@ -20,16 +20,12 @@ SQL 动态构建和执行能力，同时支持多种数据库的兼容性**，�
 
 在项目的 `pom.xml` 文件中添加以下依赖：
 
-> 目前还没有上传到中央仓库，需要先下载jar到本地目录
-
 ```xml
 
 <dependency>
-    <groupId>com.pengwz</groupId>
+    <groupId>com.dynamic-sql</groupId>
     <artifactId>dynamic-sql2-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
-    <scope>system</scope>
-    <systemPath>/path/to/dynamic-sql2-spring-boot-starter.jar</systemPath>
+    <version>0.0.1</version>
 </dependency>
 ```
 
@@ -65,7 +61,7 @@ spring:
 > 代码配置可以提供更多的灵活性，并很好的支持了多数据源的场景
 
 ```java
-import com.pengwz.dynamic.sql2.context.properties.SchemaProperties;
+import com.dynamic.sql.context.properties.SchemaProperties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -182,10 +178,10 @@ public class DataSourceConfig {
 可以通过自定义 `SqlInterceptor` 来实现日志、审计、分页等功能：
 
 ```java
-import com.pengwz.dynamic.sql2.core.database.PreparedSql;
-import com.pengwz.dynamic.sql2.core.dml.SqlStatementWrapper;
-import com.pengwz.dynamic.sql2.interceptor.ExecutionControl;
-import com.pengwz.dynamic.sql2.interceptor.SqlInterceptor;
+import com.dynamic.sql.core.database.PreparedSql;
+import com.dynamic.sql.core.dml.SqlStatementWrapper;
+import com.dynamic.sql.interceptor.ExecutionControl;
+import com.dynamic.sql.interceptor.SqlInterceptor;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -215,8 +211,8 @@ public class CustomSqlInterceptor implements SqlInterceptor {
 适用于那些支持MySQL、Oracle协议的数据库等等
 
 ```java
-import com.pengwz.dynamic.sql2.enums.DbType;
-import com.pengwz.dynamic.sql2.plugins.schema.DbSchemaMatcher;
+import com.dynamic.sql.enums.DbType;
+import com.dynamic.sql.plugins.schema.DbSchemaMatcher;
 
 @Component
 public class OracleSchemaMatcher implements DbSchemaMatcher {

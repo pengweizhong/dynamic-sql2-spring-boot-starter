@@ -1,9 +1,9 @@
 package com.dynamic.sql2.convert;
 
-import com.pengwz.dynamic.sql2.plugins.conversion.FetchResultConverter;
-import com.pengwz.dynamic.sql2.utils.CollectionUtils;
-import com.pengwz.dynamic.sql2.utils.ConverterUtils;
-import com.pengwz.dynamic.sql2.utils.ReflectUtils;
+import com.dynamic.sql.plugins.conversion.FetchResultConverter;
+import com.dynamic.sql.utils.CollectionUtils;
+import com.dynamic.sql.utils.ConverterUtils;
+import com.dynamic.sql.utils.ReflectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

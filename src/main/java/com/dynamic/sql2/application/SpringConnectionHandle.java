@@ -1,6 +1,6 @@
 package com.dynamic.sql2.application;
 
-import com.pengwz.dynamic.sql2.datasource.connection.ConnectionHandle;
+import com.dynamic.sql.datasource.connection.ConnectionHandle;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.sql.DataSource;

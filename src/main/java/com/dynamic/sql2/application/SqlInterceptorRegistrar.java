@@ -1,6 +1,6 @@
 package com.dynamic.sql2.application;
 
-import com.pengwz.dynamic.sql2.interceptor.SqlInterceptor;
+import com.dynamic.sql.interceptor.SqlInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

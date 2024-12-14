@@ -1,6 +1,7 @@
 package com.dynamic.sql2.application;
 
-import com.pengwz.dynamic.sql2.plugins.schema.DbSchemaMatcher;
+
+import com.dynamic.sql.plugins.schema.DbSchemaMatcher;
 
 import java.util.List;
 
