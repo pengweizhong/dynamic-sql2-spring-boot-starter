@@ -1,4 +1,4 @@
-package com.dynamic.sql2.convert;
+package com.dynamic.sql.starter.convert;
 
 import com.dynamic.sql.plugins.conversion.FetchResultConverter;
 import com.dynamic.sql.utils.CollectionUtils;

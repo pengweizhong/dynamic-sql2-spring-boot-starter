@@ -1,4 +1,4 @@
-package com.dynamic.sql2.application;
+package com.dynamic.sql.starter.application;
 
 
 import com.dynamic.sql.plugins.schema.DbSchemaMatcher;

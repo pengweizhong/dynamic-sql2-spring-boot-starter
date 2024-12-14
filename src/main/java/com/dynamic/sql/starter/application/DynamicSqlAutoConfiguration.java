@@ -1,4 +1,4 @@
-package com.dynamic.sql2.application;
+package com.dynamic.sql.starter.application;
 
 import com.dynamic.sql.context.SqlContextHelper;
 import com.dynamic.sql.context.properties.SchemaProperties;
@@ -15,9 +15,9 @@ import com.dynamic.sql.plugins.pagination.PageInterceptorPlugin;
 import com.dynamic.sql.plugins.schema.DbSchemaMatcher;
 import com.dynamic.sql.plugins.schema.impl.MysqlSchemaMatcher;
 import com.dynamic.sql.plugins.schema.impl.OracleSchemaMatcher;
+import com.dynamic.sql.starter.convert.FetchResultConverterRegistrar;
 import com.dynamic.sql.utils.CollectionUtils;
 import com.dynamic.sql.utils.MapUtils;
-import com.dynamic.sql2.convert.FetchResultConverterRegistrar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

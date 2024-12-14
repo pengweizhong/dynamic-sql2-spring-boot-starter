@@ -1,7 +1,7 @@
 package com.pengwz.dynamic.sql2.application;
 
 
-import com.dynamic.sql2.application.DynamicSqlAutoConfiguration;
+import com.dynamic.sql.starter.application.DynamicSqlAutoConfiguration;
 
 class DynamicSqlAutoConfigurationTest {
 
