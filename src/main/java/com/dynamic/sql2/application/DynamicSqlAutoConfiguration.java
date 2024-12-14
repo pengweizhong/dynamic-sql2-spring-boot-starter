@@ -46,13 +46,13 @@ public class DynamicSqlAutoConfiguration {
                                        List<SchemaProperties> schemaProperties) {
         this.applicationContext = applicationContext;
         this.schemaProperties = schemaProperties;
-        final String version = "1.0.0";
+        final String version = "0.0.1";
         log.info("\n ____                              _          ____   ___  _\n" +//NOSONAR
                 "|  _ \\ _   _ _ __   __ _ _ __ ___ (_) ___    / ___| / _ \\| |\n" +
                 "| | | | | | | '_ \\ / _` | '_ ` _ \\| |/ __|___\\___ \\| | | | |\n" +
                 "| |_| | |_| | | | | (_| | | | | | | | (_|_____|__) | |_| | |___\n" +
                 "|____/ \\__, |_| |_|\\__,_|_| |_| |_|_|\\___|   |____/ \\__\\_\\_____|\n" +
-                "       |___/                                     Version: " + version);
+                "       |___/                                     version: " + version);
     }
 
     @Bean
