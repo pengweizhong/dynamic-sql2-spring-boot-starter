@@ -46,7 +46,7 @@ public class DynamicSqlAutoConfiguration {
                                        List<SchemaProperties> schemaProperties) {
         this.applicationContext = applicationContext;
         this.schemaProperties = schemaProperties;
-        final String version = "0.0.3";
+        final String version = "0.0.4";
         log.info("\n ____                              _          ____   ___  _\n" +//NOSONAR
                 "|  _ \\ _   _ _ __   __ _ _ __ ___ (_) ___    / ___| / _ \\| |\n" +
                 "| | | | | | | '_ \\ / _` | '_ ` _ \\| |/ __|___\\___ \\| | | | |\n" +
