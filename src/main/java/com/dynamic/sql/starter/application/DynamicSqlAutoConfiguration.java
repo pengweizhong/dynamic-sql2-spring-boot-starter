@@ -79,7 +79,7 @@ public class DynamicSqlAutoConfiguration {
     }
 
     @Bean("fetchResultConverterRegistrar")
-    public FetchResultConverterRegistrar fetchResultConverterRegistrar(List<FetchResultConverter<Object>> fetchResultConverters) {
+    public FetchResultConverterRegistrar fetchResultConverterRegistrar(List<FetchResultConverter<?>> fetchResultConverters) {
         return new FetchResultConverterRegistrar(fetchResultConverters);
     }
 
