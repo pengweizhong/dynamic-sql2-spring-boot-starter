@@ -83,13 +83,19 @@ public class DynamicSqlAutoConfiguration {
         return new FetchResultConverterRegistrar(fetchResultConverters);
     }
 
+    @Bean("sqlContextProperties")
+    @ConditionalOnMissingBean
+    public SqlContextProperties sqlContextProperties() {
+        return new SqlContextProperties();
+    }
+
     @Bean
     @ConditionalOnMissingBean
-    @DependsOn({"fetchResultConverterRegistrar", "dbSchemaMatcherRegistrar"})
+    @DependsOn({"fetchResultConverterRegistrar", "dbSchemaMatcherRegistrar", "sqlContextProperties"})
     public SqlContext sqlContext(DbSchemaMatcherRegistrar dbSchemaMatcherRegistrar,
-                                 SqlInterceptorRegistrar sqlInterceptorRegistrar) {
+                                 SqlInterceptorRegistrar sqlInterceptorRegistrar,
+                                 SqlContextProperties sqlContextProperties) {
         log.info("SqlContext initialization completed.");
-        SqlContextProperties sqlContextProperties = new SqlContextProperties();
         for (SqlInterceptor interceptor : sqlInterceptorRegistrar.getInterceptors()) {
             log.debug("Add SqlInterceptor for {}.", interceptor.getClass().getCanonicalName());
             SqlInterceptorChain.getInstance().addInterceptor(interceptor);
@@ -104,6 +110,7 @@ public class DynamicSqlAutoConfiguration {
             return buildDefaultSqlContext(sqlContextProperties);
         }
         for (SchemaProperties schemaProperty : schemaProperties) {
+            System.out.println("--------------------------------------" + schemaProperty.getDataSourceName());
             sqlContextProperties.addSchemaProperties(schemaProperty);
             DataSource dataSource = (DataSource) applicationContext.getBean(schemaProperty.getDataSourceName());
             DataSourceMapping dataSourceMapping = new DataSourceMapping(schemaProperty.getDataSourceName(),
