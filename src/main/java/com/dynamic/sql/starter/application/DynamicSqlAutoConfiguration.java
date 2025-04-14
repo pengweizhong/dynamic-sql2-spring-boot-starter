@@ -110,7 +110,6 @@ public class DynamicSqlAutoConfiguration {
             return buildDefaultSqlContext(sqlContextProperties);
         }
         for (SchemaProperties schemaProperty : schemaProperties) {
-            System.out.println("--------------------------------------" + schemaProperty.getDataSourceName());
             sqlContextProperties.addSchemaProperties(schemaProperty);
             DataSource dataSource = (DataSource) applicationContext.getBean(schemaProperty.getDataSourceName());
             DataSourceMapping dataSourceMapping = new DataSourceMapping(schemaProperty.getDataSourceName(),
