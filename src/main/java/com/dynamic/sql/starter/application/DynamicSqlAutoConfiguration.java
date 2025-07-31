@@ -11,6 +11,8 @@ import com.dynamic.sql.datasource.connection.ConnectionHolder;
 import com.dynamic.sql.interceptor.SqlInterceptor;
 import com.dynamic.sql.interceptor.SqlInterceptorChain;
 import com.dynamic.sql.plugins.conversion.FetchResultConverter;
+import com.dynamic.sql.plugins.exception.DefaultSqlErrorHint;
+import com.dynamic.sql.plugins.exception.ExceptionPlugin;
 import com.dynamic.sql.plugins.pagination.PageInterceptorPlugin;
 import com.dynamic.sql.plugins.schema.DbSchemaMatcher;
 import com.dynamic.sql.plugins.schema.impl.MysqlSchemaMatcher;
@@ -58,6 +60,11 @@ public class DynamicSqlAutoConfiguration {
     @Bean
     public PageInterceptorPlugin pageInterceptorPlugin() {
         return new PageInterceptorPlugin();
+    }
+
+    @Bean
+    public ExceptionPlugin exceptionPlugin() {
+        return new ExceptionPlugin(new DefaultSqlErrorHint());
     }
 
     @Bean
