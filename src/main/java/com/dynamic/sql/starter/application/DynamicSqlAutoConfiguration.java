@@ -102,7 +102,6 @@ public class DynamicSqlAutoConfiguration {
     public SqlContext sqlContext(DbSchemaMatcherRegistrar dbSchemaMatcherRegistrar,
                                  SqlInterceptorRegistrar sqlInterceptorRegistrar,
                                  SqlContextProperties sqlContextProperties) {
-        log.info("SqlContext initialization completed.");
         for (SqlInterceptor interceptor : sqlInterceptorRegistrar.getInterceptors()) {
             log.debug("Add SqlInterceptor for {}.", interceptor.getClass().getCanonicalName());
             SqlInterceptorChain.getInstance().addInterceptor(interceptor);
@@ -127,6 +126,7 @@ public class DynamicSqlAutoConfiguration {
         FetchResultConverterRegistrar fetchResultConverterRegistrar =
                 (FetchResultConverterRegistrar) applicationContext.getBean("fetchResultConverterRegistrar");
         fetchResultConverterRegistrar.registrarConverters();
+        log.info("SqlContext initialization completed.");
         return SqlContextHelper.createSqlContextConfigurer(sqlContextProperties).getSqlContext();
     }
 
