@@ -22,11 +22,20 @@ SQL 动态构建和执行能力，同时支持多种数据库的兼容性**，�
 
 ```xml
 
+<!--springboot 2.x-->
 <dependency>
     <groupId>com.dynamic-sql</groupId>
     <artifactId>dynamic-sql2-spring-boot-starter</artifactId>
     <version>0.1.4</version>
 </dependency>
+
+<!--springboot 3.x-->
+<dependency>
+    <groupId>com.dynamic-sql</groupId>
+    <artifactId>dynamic-sql2-spring-boot3-starter</artifactId>
+    <version>0.1.4</version>
+</dependency>
+
 ```
 
 ### 2. 配置
