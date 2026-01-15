@@ -6,7 +6,7 @@
 
     <groupId>com.dynamic-sql</groupId>
     <artifactId>dynamic-sql2-spring-boot-starter</artifactId>
-    <version>0.1.6</version>
+    <version>0.1.8</version>
     <name>Dynamic-SQL2</name>
     <description>动态 SQL 框架 Starter，用以简化 Dynamic-SQL2 的配置封装。</description>
     <inceptionYear>2024</inceptionYear>
@@ -16,7 +16,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.5.3</spring.boot.version>
-        <dynamic-sql.version>0.1.6</dynamic-sql.version>
+        <dynamic-sql.version>0.1.8</dynamic-sql.version>
     </properties>
 
     <developers>
