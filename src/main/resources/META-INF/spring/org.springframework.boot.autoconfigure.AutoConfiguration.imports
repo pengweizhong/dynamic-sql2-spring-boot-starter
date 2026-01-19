@@ -1,1 +1,2 @@
 com.dynamic.sql.starter.application.DynamicSqlAutoConfiguration
+com.dynamic.sql.starter.config.ValueParserConfiguration
