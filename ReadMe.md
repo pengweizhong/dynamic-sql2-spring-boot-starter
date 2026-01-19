@@ -26,14 +26,14 @@ SQL 动态构建和执行能力，同时支持多种数据库的兼容性**，�
 <dependency>
     <groupId>com.dynamic-sql</groupId>
     <artifactId>dynamic-sql2-spring-boot-starter</artifactId>
-    <version>0.1.5.1</version>
+    <version>0.1.8</version>
 </dependency>
 
 <!--springboot 3.x-->
 <dependency>
     <groupId>com.dynamic-sql</groupId>
     <artifactId>dynamic-sql2-spring-boot3-starter</artifactId>
-    <version>0.1.5.1</version>
+    <version>0.1.8</version>
 </dependency>
 
 ```

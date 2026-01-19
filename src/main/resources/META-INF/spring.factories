@@ -1,1 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.dynamic.sql.starter.application.DynamicSqlAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.dynamic.sql.starter.application.DynamicSqlAutoConfiguration,\
+com.dynamic.sql.starter.config.ValueParserConfiguration
