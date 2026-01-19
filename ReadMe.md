@@ -71,6 +71,9 @@ spring:
 
 ```java
 import com.dynamic.sql.context.properties.SchemaProperties;
+import com.dynamic.sql.plugins.resolve.DefaultValueParser;
+import com.dynamic.sql.plugins.resolve.ValueParser;
+import com.dynamic.sql.plugins.resolve.ValueResolver;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -81,11 +84,25 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 @Configuration
 //可选注解，当数据源配置类较多时建议添加
 //@AutoConfigureBefore(DynamicSqlAutoConfiguration.class)
 public class DataSourceConfig {
+
+    // 可选配置 ValueParser
+    @Bean
+    public ValueParser valueParser() {
+        // 默认的解析实现，也可以自定义实现 ValueParser 接口
+        DefaultValueParser defaultValueParser = new DefaultValueParser();
+        ValueResolver valueResolver = defaultValueParser.getValueResolver();
+        Map<String, String> resolverConfig = valueResolver.getConfig();
+        // 添加自定义的配置项，用于解析 Table 注解中的 schema 和表名占位符
+        resolverConfig.put("com.profile.table.user", "t_user");
+        resolverConfig.put("com.profile.schema.example_db", "t_example_db");
+        return defaultValueParser;
+    }
 
     @Bean("dataSource")
     public DataSource dataSource() {
