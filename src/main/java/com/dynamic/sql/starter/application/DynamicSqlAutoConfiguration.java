@@ -2,8 +2,8 @@ package com.dynamic.sql.starter.application;
 
 import com.dynamic.sql.context.SqlContextHelper;
 import com.dynamic.sql.context.properties.SchemaProperties;
-import com.dynamic.sql.context.properties.SchemaProperties.PrintSqlProperties;
 import com.dynamic.sql.context.properties.SqlContextProperties;
+import com.dynamic.sql.context.properties.SqlLogProperties;
 import com.dynamic.sql.core.SqlContext;
 import com.dynamic.sql.datasource.DataSourceMapping;
 import com.dynamic.sql.datasource.DataSourceUtils;
@@ -13,6 +13,7 @@ import com.dynamic.sql.interceptor.SqlInterceptorChain;
 import com.dynamic.sql.plugins.conversion.FetchResultConverter;
 import com.dynamic.sql.plugins.exception.DefaultSqlErrorHint;
 import com.dynamic.sql.plugins.exception.ExceptionPlugin;
+import com.dynamic.sql.plugins.logger.impl.DefaultSqlLogger;
 import com.dynamic.sql.plugins.pagination.PageInterceptorPlugin;
 import com.dynamic.sql.plugins.schema.DbSchemaMatcher;
 import com.dynamic.sql.plugins.schema.impl.MysqlSchemaMatcher;
@@ -20,6 +21,7 @@ import com.dynamic.sql.plugins.schema.impl.OracleSchemaMatcher;
 import com.dynamic.sql.starter.convert.FetchResultConverterRegistrar;
 import com.dynamic.sql.utils.CollectionUtils;
 import com.dynamic.sql.utils.MapUtils;
+import jdk.jfr.internal.LogLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class DynamicSqlAutoConfiguration {
                                        List<SchemaProperties> schemaProperties) {
         this.applicationContext = applicationContext;
         this.schemaProperties = schemaProperties;
-        final String version = "0.1.8";
+        final String version = "0.2.0";
         log.info("\n ____                              _          ____   ___  _\n" +//NOSONAR
                 "|  _ \\ _   _ _ __   __ _ _ __ ___ (_) ___    / ___| / _ \\| |\n" +
                 "| | | | | | | '_ \\ / _` | '_ ` _ \\| |/ __|___\\___ \\| | | | |\n" +
@@ -141,10 +143,12 @@ public class DynamicSqlAutoConfiguration {
         schemaProperty.setDataSourceName(dataSourceName);
         schemaProperty.setUseSchemaInQuery(false);
         schemaProperty.setUseAsInQuery(true);
-        PrintSqlProperties printSqlProperties = new PrintSqlProperties();
-        printSqlProperties.setPrintSql(true);
-        printSqlProperties.setPrintDataSourceName(false);
-        schemaProperty.setPrintSqlProperties(printSqlProperties);
+        SqlLogProperties sqlLogProperties = new SqlLogProperties();
+        sqlLogProperties.setEnabled(true);
+        sqlLogProperties.setPrintExecutionTime(true);
+        sqlLogProperties.setLogger(new DefaultSqlLogger());
+        sqlLogProperties.setLevel(LogLevel.DEBUG);
+        schemaProperty.setSqlLogProperties(sqlLogProperties);
         sqlContextProperties.addSchemaProperties(schemaProperty);
         SqlContextHelper.addSchemaProperties(sqlContextProperties);
         return SqlContextHelper.createSqlContextConfigurer(sqlContextProperties).getSqlContext();
