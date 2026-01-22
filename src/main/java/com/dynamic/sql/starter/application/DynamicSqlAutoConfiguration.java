@@ -8,6 +8,7 @@ import com.dynamic.sql.core.SqlContext;
 import com.dynamic.sql.datasource.DataSourceMapping;
 import com.dynamic.sql.datasource.DataSourceUtils;
 import com.dynamic.sql.datasource.connection.ConnectionHolder;
+import com.dynamic.sql.enums.LogLevel;
 import com.dynamic.sql.interceptor.SqlInterceptor;
 import com.dynamic.sql.interceptor.SqlInterceptorChain;
 import com.dynamic.sql.plugins.conversion.FetchResultConverter;
@@ -21,7 +22,6 @@ import com.dynamic.sql.plugins.schema.impl.OracleSchemaMatcher;
 import com.dynamic.sql.starter.convert.FetchResultConverterRegistrar;
 import com.dynamic.sql.utils.CollectionUtils;
 import com.dynamic.sql.utils.MapUtils;
-import jdk.jfr.internal.LogLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class DynamicSqlAutoConfiguration {
                                        List<SchemaProperties> schemaProperties) {
         this.applicationContext = applicationContext;
         this.schemaProperties = schemaProperties;
-        final String version = "0.2.0";
+        final String version = "0.2.1";
         log.info("\n ____                              _          ____   ___  _\n" +//NOSONAR
                 "|  _ \\ _   _ _ __   __ _ _ __ ___ (_) ___    / ___| / _ \\| |\n" +
                 "| | | | | | | '_ \\ / _` | '_ ` _ \\| |/ __|___\\___ \\| | | | |\n" +
