@@ -133,11 +133,22 @@ public class DataSourceConfig {
     @Bean
     public SchemaProperties schemaProperties() {
         SchemaProperties schemaProperties = new SchemaProperties();
+        // 配置数据源名称
         schemaProperties.setDataSourceName("dataSource");
+        // 配置全局默认数据源
         schemaProperties.setGlobalDefault(true);
-        schemaProperties.setUseSchemaInQuery(true);
-        schemaProperties.getPrintSqlProperties().setPrintDataSourceName(false);
-        schemaProperties.getPrintSqlProperties().setPrintSql(true);
+        // 是否在查询中使用schema
+        schemaProperties.setUseSchemaInQuery(false);
+        // 将此包下的实体类与数据源进行绑定
+        schemaProperties.setBindBasePackages("com.pengwz.entities.configdb");
+        // 配置打印SQL
+        SqlLogProperties sqlLogProperties = schemaProperties.getSqlLogProperties();
+        // 是否打印数据源名称
+        sqlLogProperties.setPrintDataSourceName(true);
+        // 设置打印SQL的日志级别
+        sqlLogProperties.setLevel(LogLevel.DEBUG);
+        // 打印SQL的执行耗时
+        sqlLogProperties.setPrintExecutionTime(true);
         return schemaProperties;
     }
 
@@ -165,12 +176,10 @@ public class DataSourceConfig {
     public SchemaProperties schemaProperties2() {
         SchemaProperties schemaProperties = new SchemaProperties();
         schemaProperties.setDataSourceName("dataSource2");
-        //设置此数据源绑定的实体类包路径，后续实体类无需在指定数据源Bean
-        schemaProperties.setBindBasePackages("com.demo.demoproject.entities");
         schemaProperties.setGlobalDefault(false);
         schemaProperties.setUseSchemaInQuery(false);
-        schemaProperties.getPrintSqlProperties().setPrintDataSourceName(false);
-        schemaProperties.getPrintSqlProperties().setPrintSql(true);
+        // 将此包下的实体类与数据源进行绑定，后续无须在实体类上指定数据源
+        schemaProperties.setBindBasePackages("com.pengwz.entities.configdb2");
         return schemaProperties;
     }
 
@@ -183,6 +192,32 @@ public class DataSourceConfig {
 }
 
 
+
+```
+以上多数据源配置中，重点在于 `SchemaProperties` Bean 的定义，其他的都是业务本身的配置：
+```java
+ @Bean
+public SchemaProperties schemaProperties() {
+    SchemaProperties schemaProperties = new SchemaProperties();
+    // 配置数据源名称
+    schemaProperties.setDataSourceName("dataSource");
+    // 配置全局默认数据源
+    schemaProperties.setGlobalDefault(true);
+    // 是否在查询中使用schema
+    schemaProperties.setUseSchemaInQuery(false);
+    // 将此包下的实体类与数据源进行绑定
+    schemaProperties.setBindBasePackages("com.pengwz.entities.configdb");
+    // 配置打印SQL
+    SqlLogProperties sqlLogProperties = schemaProperties.getSqlLogProperties();
+    // 是否打印数据源名称
+    sqlLogProperties.setPrintDataSourceName(true);
+    // 设置打印SQL的日志级别
+    sqlLogProperties.setLevel(LogLevel.DEBUG);
+    // 打印SQL的执行耗时
+    sqlLogProperties.setPrintExecutionTime(true);
+    // 。。。 其他的配置项
+    return schemaProperties;
+}
 
 ```
 
